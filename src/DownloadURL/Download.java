@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.swing.JProgressBar;
 
 
-public class Download implements Runnable {
+
+public class Download {
 
 	String link;
 	File out;
@@ -18,10 +20,11 @@ public class Download implements Runnable {
 	public Download(String link, File out) {
 		this.link = link;
 		this.out = out;
+		
 	}
-
-	@Override
-	public void run() {
+	
+	
+	public void start() {
 		try {
 			URL url = new URL(link);
 			HttpURLConnection http = (HttpURLConnection)url.openConnection();

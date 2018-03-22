@@ -14,7 +14,7 @@ public class ReadFile {
 		this.in = in;
 		}
 	
-	public void findAirport(String airport) {
+	public String findAirport(String airport) {
 		try {
 			Scanner rf = new Scanner(in, "UTF-8");
 			
@@ -22,13 +22,13 @@ public class ReadFile {
 				String line = rf.nextLine();
 				if (line.substring(0,4).equals(airport)) {
 					metarText = line;
-					System.out.println(metarText);
 				} 
 			}
 			rf.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Brak pliku w podanej ścieżce.");
 		}
+		return metarText;
 }
 }
 
