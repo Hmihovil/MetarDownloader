@@ -116,8 +116,19 @@ public class MetarApp {
 		ReadFile read = new ReadFile(in);
 		Decoder decoder = new Decoder();
 		
-
+		//create button and field objects
 		JTextArea textArea = new JTextArea();
+		textField = new JTextField();
+		JButton btnShow = new JButton("METAR");
+		JRadioButton rdbtnDecode = new JRadioButton("");
+		JButton btnRefresh = new JButton("Refresh");
+
+		
+		frame.getContentPane().add(textArea);
+		frame.getContentPane().add(btnShow);
+		frame.getContentPane().add(textField);
+
+		
 		textArea.setForeground(Color.WHITE);
 		textArea.setBounds(46, 109, 612, 292);
 		textArea.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
@@ -127,7 +138,7 @@ public class MetarApp {
 		textArea.setEditable(false);
 		
 		
-		textField = new JTextField();
+		
 		textField.setForeground(new Color(255, 255, 255));
 		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		textField.setBounds(520, 28, 52, 38);
@@ -138,6 +149,7 @@ public class MetarApp {
 				
 				airportCode = textField.getText().toUpperCase();
 
+				rdbtnDecode.setSelected(false);
 				String allLine = decoder.saveAllLine(read, airportCode);
 				String raw = decoder.showRawMetar(allLine);
 				print = raw;
@@ -146,7 +158,6 @@ public class MetarApp {
 		});
 		
 		
-		JButton btnShow = new JButton("METAR");
 		btnShow.setForeground(new Color(255, 255, 255));
 		btnShow.setFont(new Font("Palatino Linotype", Font.BOLD, 15));
 		btnShow.setBounds(581, 28, 93, 38);
@@ -157,8 +168,8 @@ public class MetarApp {
 		frame.getContentPane().setLayout(null);
 		btnShow.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
-				
 				airportCode = textField.getText().toUpperCase();
+				rdbtnDecode.setSelected(false);
 				String allLine = decoder.saveAllLine(read, airportCode);
 				String raw = decoder.showRawMetar(allLine);
 				print = raw;
@@ -166,11 +177,9 @@ public class MetarApp {
 			}
 		});
 		
-		frame.getContentPane().add(textArea);
-		frame.getContentPane().add(btnShow);
-		frame.getContentPane().add(textField);
 		
-		JRadioButton rdbtnDecode = new JRadioButton("");
+		
+		
 		rdbtnDecode.setFont(new Font("Palatino Linotype", Font.PLAIN, 16));
 		rdbtnDecode.setForeground(Color.WHITE);
 		rdbtnDecode.setBounds(59, 432, 153, 23);
@@ -196,7 +205,6 @@ public class MetarApp {
 			}
 		});
 		
-		JButton btnRefresh = new JButton("Refresh");
 		btnRefresh.setForeground(new Color(255, 255, 255));
 		btnRefresh.setFont(new Font("Palatino Linotype", Font.PLAIN, 16));
 		btnRefresh.setBounds(581, 417, 93, 38);

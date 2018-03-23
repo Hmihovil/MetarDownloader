@@ -93,46 +93,50 @@ public class Decoder {
 		if (s[14].equals("TRUE")) {
 			auto = "\nAuto";
 		}
-		p[23] = auto;
+		p[24] = auto;
 		
 		String auto_station = s[15];
 		if (s[15].equals("TRUE")) {
 			auto_station = "\nAuto station";
 		}
-		p[24] = auto_station;
+		p[25] = auto_station;
 		
 		String maintenance_indicator_on = s[16];
 		if (s[16].equals("TRUE")) {
 			maintenance_indicator_on = "\nMaintenance indicator on";
 		}
-		p[25] = maintenance_indicator_on;
+		p[26] = maintenance_indicator_on;
 		
 		String no_signal = s[17];
 		if (s[17].equals("TRUE")) {
 			no_signal = "\nNo signal";
 		}
-		p[26] = no_signal;
+		p[27] = no_signal;
 		
 		String lightning_sensor_off = s[18];
 		if (s[18].equals("TRUE")) {
 			lightning_sensor_off = "\nLightning sensor off";
 		}
-		p[27] = lightning_sensor_off;
+		p[28] = lightning_sensor_off;
 		
 		String freezing_rain_sensor_off = s[19];
 		if (s[19].equals("TRUE")) {
 			freezing_rain_sensor_off = "\nFreezing rain sensor off";
 		}
-		p[28] = freezing_rain_sensor_off;
+		p[29] = freezing_rain_sensor_off;
 		
 		String present_weather_sensor_off = s[20];
 		if (s[20].equals("TRUE")) {
 			present_weather_sensor_off = "\nPresent weather sensor off";
 		}
-		p[29] = present_weather_sensor_off;
+		p[30] = present_weather_sensor_off;
 		
-		String wx_string = s[21];
-		p[30] = wx_string;
+		String wx_string = checkWx(s[21]);
+		wx_string = "\nRemarks:\t           " + wx_string;
+		if (s[21].equals("")) {
+			wx_string = "";
+		}
+		p[8] = wx_string;
 		
 		
 		//CLOUDS AND SKY COVERAGE
@@ -161,90 +165,90 @@ public class Decoder {
 			cloud_base_ft_agl3 = "";
 		}
 		
-		String clouds = "\nSky coverage (AGL):     " + sky_cover + cloud_base_ft_agl + sky_cover1 + cloud_base_ft_agl1 + sky_cover2 
+		String clouds = "\nSky coverage (AGL):    " + sky_cover + cloud_base_ft_agl + sky_cover1 + cloud_base_ft_agl1 + sky_cover2 
 				+ cloud_base_ft_agl2 + sky_cover3 + cloud_base_ft_agl3;
-		p[8] = clouds;
+		p[9] = clouds;
 		
-		String flight_category = "\nFlight category:           " + s[30];
-		p[9] = flight_category;
+		String flight_category = "\nFlight category:          " + s[30];
+		p[10] = flight_category;
 		
-		String three_hr_pressure_tendency_mb = "\n3hr pressure tend.:     " + s[31] + " mb";
+		String three_hr_pressure_tendency_mb = "\n3hr pressure tend.:    " + s[31] + " mb";
 		if (s[31].equals("")) {
 			three_hr_pressure_tendency_mb = "";
 		}
-		p[10] = three_hr_pressure_tendency_mb;
+		p[11] = three_hr_pressure_tendency_mb;
 		
 		String maxT_c = "\nMax temperature:        " + s[32] + " C";
 		if (s[32].equals("")) {
 			maxT_c = "";
 		}
-		p[11] = maxT_c;
+		p[12] = maxT_c;
 	
 		String minT_c = "\nMin temperature:        " + s[33] + " C";
 		if (s[33].equals("")) {
 			minT_c = "";
 		}
-		p[12] = minT_c;
+		p[13] = minT_c;
 
 		String maxT24hr_c = "\nMax temp in 24hr:       " + s[34] + " C";
 		if (s[34].equals("")) {
 			maxT24hr_c = "";
 		}
-		p[13] = maxT24hr_c;
+		p[14] = maxT24hr_c;
 
 		String minT24hr_c = "\nMin temp in 24hr:       " + s[35] + " C";
 		if (s[35].equals("")) {
 			minT24hr_c = "";
 		}
-		p[14] = minT24hr_c;
+		p[15] = minT24hr_c;
 		
 		String precip_in = "\nPrecipitation:\t           " + s[36] + " in";
 		if (s[36].equals("")) {
 			precip_in = "";
 		}
-		p[15] = precip_in;
+		p[16] = precip_in;
 		
 		String pcp3hr_in = "\nPrecip. in 3hr:\t           " + s[37] + " in";
 		if (s[37].equals("")) {
 			pcp3hr_in = "";
 		}
-		p[16] = pcp3hr_in;
+		p[17] = pcp3hr_in;
 		
 		String pcp6hr_in = "\nPrecip. in 6hr:\t           " + s[38] + " in";
 		if (s[38].equals("")) {
 			pcp6hr_in = "";
 		}
-		p[17] = pcp6hr_in;
+		p[18] = pcp6hr_in;
 		
 		String pcp24hr_in = "\nPrecip. in 24hr:\t           " + s[39] + " in";
 		if (s[39].equals("")) {
 			pcp24hr_in = "";
 		}
-		p[18] = pcp24hr_in;
+		p[19] = pcp24hr_in;
 		
 		String snow_in = "\nSnow:\t           " + s[40] + " in";
 		if (s[40].equals("")) {
 			snow_in = "";
 		}
-		p[19] = snow_in;
+		p[20] = snow_in;
 		
 		String vert_vis_ft = "\nVertical visibility:    " + s[41] + " ft";
 		if (s[41].equals("")) {
 			vert_vis_ft = "";
 		}
-		p[20] = vert_vis_ft;
+		p[21] = vert_vis_ft;
 		
-		String metar_type = "\nMetar type:\t           " + s[42];
+		String metar_type = "\nMetar type:\t          " + s[42];
 		if (s[42].equals("")) {
 			metar_type = "";
 		}
-		p[21] = metar_type;
+		p[22] = metar_type;
 		
-		String elevation_m = "\nElevation:\t           " + s[43] + " m";
+		String elevation_m = "\nElevation:\t          " + s[43] + " m";
 		if (s[43].equals("")) {
 			elevation_m = "";
 		}
-		p[22] = elevation_m;
+		p[23] = elevation_m;
 		
 		
 	
@@ -282,11 +286,24 @@ public class Decoder {
 		case "CB":
 			sky_cover = "cumulonimbus at ";
 			break;
+		case "BCFG":
+			sky_cover = "moderate fog patches, ";
+			break;
 		default: 
 		    sky_cover = s;
 		    break;
 		}
 		return sky_cover;
+	}
+	
+	private String checkWx(String s) {
+		String wx = s;
+		switch(s) {
+		case "BCFG":
+			wx = "moderate fog patches";
+			break;
+		}
+		return wx;
 	}
 	
 	
