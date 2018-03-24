@@ -131,12 +131,17 @@ public class Decoder {
 		}
 		p[30] = present_weather_sensor_off;
 		
+		
+		
+		//WEATHER STRING
+		
 		String wx_string = checkWx(s[21]);
 		wx_string = "\nRemarks:\t           " + wx_string;
 		if (s[21].equals("")) {
 			wx_string = "";
 		}
 		p[8] = wx_string;
+		
 		
 		
 		//CLOUDS AND SKY COVERAGE
@@ -165,11 +170,11 @@ public class Decoder {
 			cloud_base_ft_agl3 = "";
 		}
 		
-		String clouds = "\nSky coverage (AGL):    " + sky_cover + cloud_base_ft_agl + sky_cover1 + cloud_base_ft_agl1 + sky_cover2 
+		String clouds = "\nSky coverage AGL:       " + sky_cover + cloud_base_ft_agl + sky_cover1 + cloud_base_ft_agl1 + sky_cover2 
 				+ cloud_base_ft_agl2 + sky_cover3 + cloud_base_ft_agl3;
 		p[9] = clouds;
 		
-		String flight_category = "\nFlight category:          " + s[30];
+		String flight_category = "\nFlight category:           " + s[30];
 		p[10] = flight_category;
 		
 		String three_hr_pressure_tendency_mb = "\n3hr pressure tend.:    " + s[31] + " mb";
@@ -238,13 +243,13 @@ public class Decoder {
 		}
 		p[21] = vert_vis_ft;
 		
-		String metar_type = "\nMetar type:\t          " + s[42];
+		String metar_type = "\nMetar type:\t           " + s[42];
 		if (s[42].equals("")) {
 			metar_type = "";
 		}
 		p[22] = metar_type;
 		
-		String elevation_m = "\nElevation:\t          " + s[43] + " m";
+		String elevation_m = "\nElevation:\t           " + s[43] + " m";
 		if (s[43].equals("")) {
 			elevation_m = "";
 		}
@@ -259,6 +264,8 @@ public class Decoder {
 		return decoded;
 	}
 
+	
+	//SKY COVERAGE
 	private String checkClouds(String s) {
 		String sky_cover;
 		switch (s) {
@@ -296,13 +303,133 @@ public class Decoder {
 		return sky_cover;
 	}
 	
+	//WEATHER REMARKS
 	private String checkWx(String s) {
 		String wx = s;
-		switch(s) {
-		case "BCFG":
-			wx = "moderate fog patches";
-			break;
+
+		
+		//INTENSITY
+		if (s.equals("")) {
+			wx = "";
+		} else if ((s.substring(0, 1)).equals("-")) {
+			wx = "light ";
+		} else if ((s.substring(0, 1)).equals("+")) {
+			wx = "heavy ";
+		} else if ((s.substring(0, 2)).equals("VC")) {
+			wx = "vicinity ";
+		} else {
+			wx = "moderate ";
 		}
+		
+		//DESCRIPTION
+		String[] desc = {"MI", "PR", "BC", "DR", "BL", "SH", "TS", "FZ"};
+		for (int i = 0; i<desc.length; i++) {
+			if (s.contains(desc[i])) {
+				switch(desc[i]) {
+				case "MI":
+					wx += "shallow ";
+					break;
+				case "PR":
+					wx += "partial ";
+					break;
+				case "BC":
+					wx += "patches ";
+					break;
+				case "DR":
+					wx += "low drifting ";
+					break;
+				case "BL":
+					wx += "blowing ";
+					break;
+				case "SH":
+					wx += "showers ";
+					break;
+				case "TS":
+					wx += "thunderstorm ";
+					break;
+				case "FZ":
+					wx += "freezing ";
+					break;
+				}
+			}
+		}
+		
+		//PRECIPITATION AND OBSCURATION
+		String[] prec = {"DZ", "RA", "SN", "SG", "IC", "PL", "GR", "GS", "UP", "BR", "FG", "FU", "VA", "DU", "SA", "HZ", "PY",
+				"PO", "SQ", "FC", "SS", "DS"};
+		for (int i = 0; i<prec.length; i++) {
+			if (s.contains(prec[i])) {
+				switch(prec[i]) {
+				case "DZ":
+					wx += "drizzle";
+					break;
+				case "RA":
+					wx += "rain";
+					break;
+				case "SN":
+					wx += "snow";
+					break;
+				case "SG":
+					wx += "snow grains";
+					break;
+				case "IC":
+					wx += "ice crystals";
+					break;
+				case "PL":
+					wx += "ice pellets";
+					break;
+				case "GR":
+					wx += "hail";
+					break;
+				case "GS":
+					wx += "small hail";
+					break;
+				case "UP":
+					wx += "unknown";
+					break;
+				case "BR":
+					wx += "mist ";
+					break;
+				case "FG":
+					wx += "fog ";
+					break;
+				case "FU":
+					wx += "smoke ";
+					break;
+				case "VA":
+					wx += "volcanic ash ";
+					break;
+				case "DU":
+					wx += "widespread dust haze ";
+					break;
+				case "SA":
+					wx += "sand ";
+					break;
+				case "HZ":
+					wx += "haze ";
+					break;
+				case "PY":
+					wx += "spray ";
+					break;
+				case "PO":
+					wx += "well developed dust / sand whirls ";
+					break;
+				case "SQ":
+					wx += "squalls ";
+					break;
+				case "FC":
+					wx += "funnel clouds, inc tornadoes / waterspouts ";
+					break;
+				case "SS":
+					wx += "sandstorm ";
+					break;
+				case "DS":
+					wx += "duststorm ";
+					break;
+				}
+			}
+		}
+		
 		return wx;
 	}
 	
