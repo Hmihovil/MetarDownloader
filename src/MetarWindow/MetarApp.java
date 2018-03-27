@@ -12,9 +12,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingUtilities;
 
 import DownloadURL.Airport;
 import DownloadURL.Download;
+import DownloadURL.ProgressBar;
 import DownloadURL.ReadFile;
 
 import javax.swing.JTextField;
@@ -43,7 +45,9 @@ import javax.swing.JLabel;
 
 public class MetarApp {
 	
-	
+	 static final int MY_MINIMUM = 0;
+
+	  static final int MY_MAXIMUM = 100;
 
 	private JFrame frame;
 	private JTextField textField;
@@ -67,6 +71,7 @@ public class MetarApp {
 					Download download = new Download(link, out);
 					download.start();
 					Decoder decoder = new Decoder();
+					
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -122,11 +127,13 @@ public class MetarApp {
 		JButton btnShow = new JButton("METAR");
 		JRadioButton rdbtnDecode = new JRadioButton("");
 		JButton btnRefresh = new JButton("Refresh");
-
+		
 		
 		frame.getContentPane().add(textArea);
 		frame.getContentPane().add(btnShow);
 		frame.getContentPane().add(textField);
+		
+
 
 		
 		textArea.setForeground(Color.WHITE);
@@ -221,5 +228,36 @@ public class MetarApp {
 				download.start();
 			}
 		});
+		
+
+		
+		/* PROGRESS BAR - does not work :(
+		JProgressBar progBar = new JProgressBar();
+		frame.getContentPane().add(progBar);
+		progBar.setBounds(293, 435, 146, 20);
+		progBar.setMinimum(MY_MINIMUM);
+		progBar.setMaximum(MY_MAXIMUM);
+		progBar.setBackground(new Color(200,200,200));
+		progBar.setForeground(new Color(100,100,100));
+		progBar.setVisible(ProgressBar.isVisible);
+		
+		
+		
+	    
+		for (int i = MY_MINIMUM; i <= MY_MAXIMUM; i++) {
+		      try {
+		        SwingUtilities.invokeLater(new Runnable() {
+		          public void run() {
+		        	  progBar.setValue((int)ProgressBar.progress);
+		              progBar.update(progBar.getGraphics());
+		          }
+		        });
+		        java.lang.Thread.sleep(100);
+		      } catch (InterruptedException e) {
+		        
+		      }
+		}
+		*/
+		
 	}
 }

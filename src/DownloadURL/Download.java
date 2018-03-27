@@ -41,6 +41,23 @@ public class Download {
 				bout.write(buffer, 0, read);
 				downloaded += read;
 				percentDownloaded = (downloaded*100)/fileSize;
+				
+				/* PROGRESS BAR - does not work :( 
+				ProgressBar.progress = percentDownloaded;
+				if (percentDownloaded<100) {
+					ProgressBar.isVisible = true;
+				} else if (percentDownloaded ==100) {
+					ProgressBar.isVisible = false;
+				}
+				
+				
+				if (percentDownloaded<100) {
+					ProgressBar.downloadStatus = "Downloading METAR...";
+				} else {
+					ProgressBar.downloadStatus = "Download complete.";
+				}
+				*/
+				
 				String percent = String.format("%.4f", percentDownloaded);
 				System.out.println("Downloaded " + percent + "% of file.");
 			}

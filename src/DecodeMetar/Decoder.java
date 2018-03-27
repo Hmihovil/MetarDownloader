@@ -177,7 +177,7 @@ public class Decoder {
 		String flight_category = "\nFlight category:           " + s[30];
 		p[10] = flight_category;
 		
-		String three_hr_pressure_tendency_mb = "\n3hr pressure tend.:    " + s[31] + " mb";
+		String three_hr_pressure_tendency_mb = "\n3hr pressure tend.:     " + s[31] + " mb";
 		if (s[31].equals("")) {
 			three_hr_pressure_tendency_mb = "";
 		}
